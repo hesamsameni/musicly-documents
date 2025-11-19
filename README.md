@@ -9,6 +9,13 @@ This document provides comprehensive API documentation for mobile developers int
 - [Error Handling](#error-handling)
 - [Endpoints](#endpoints)
   - [Posts](#posts)
+  - [Notifications](#notifications)
+  - [Users](#users)
+  - [Comments](#comments)
+  - [Bookmarks](#bookmarks)
+  - [Feed](#feed)
+  - [Songs](#songs)
+  - [Newsletter](#newsletter)
 ```
 Production: https://musicly.me/api
 Development: http://localhost:3000/api
