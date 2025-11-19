@@ -9,18 +9,6 @@ This document provides comprehensive API documentation for mobile developers int
 - [Error Handling](#error-handling)
 - [Endpoints](#endpoints)
   - [Posts](#posts)
-  - [Users](#users)
-  - [Comments](#comments)
-  - [Bookmarks](#bookmarks)
-  - [Feed](#feed)
-  - [Songs](#songs)
-  - [Newsletter](#newsletter)
-  - [Music Integrations](#music-integrations)
-
----
-
-## Base URL
-
 ```
 Production: https://musicly.me/api
 Development: http://localhost:3000/api
@@ -816,6 +804,114 @@ Add a song to a bookmark.
   "success": true
 }
 ```
+
+---
+
+### Notifications
+
+#### Get Unread Notifications Count
+
+Get the total count of unread notifications (comments, replies, likes, follows).
+
+**Endpoint:** `GET /api/notifications/count`
+
+**Authentication:** Required (User JWT)
+
+**Response:**
+
+```json
+5
+```
+
+Returns a simple integer representing the total number of unread notifications.
+
+---
+
+#### Get Notifications
+
+Get a list of notifications for the current user, including comments, likes, and follows.
+
+**Endpoint:** `GET /api/notifications`
+
+**Authentication:** Required (User JWT)
+
+**Response:**
+
+```json
+[
+  {
+    "id": "comment_id",
+    "type": "comment",
+    "content": "Nice song!",
+    "post_id": "post_id",
+    "song": {
+      "title": "Song Title",
+      "artist": "Artist Name"
+    },
+    "created_at": "2024-01-01T00:00:00Z",
+    "is_read": false,
+    "user": {
+      "id": "user_id",
+      "display_name": "User Name",
+      "avatar_url": "https://avatar.url"
+    }
+  },
+  {
+    "id": "user_id-post_id",
+    "type": "like",
+    "post_id": "post_id",
+    "song": {
+      "title": "Song Title",
+      "artist": "Artist Name"
+    },
+    "created_at": "2024-01-01T00:00:00Z",
+    "is_read": true,
+    "user": {
+      "id": "user_id",
+      "display_name": "User Name",
+      "avatar_url": "https://avatar.url"
+    }
+  },
+  {
+    "id": "follower_id",
+    "type": "follow",
+    "created_at": "2024-01-01T00:00:00Z",
+    "is_read": false,
+    "user": {
+      "id": "follower_id",
+      "display_name": "Follower Name",
+      "avatar_url": "https://avatar.url"
+    }
+  }
+]
+```
+
+**Notification Types:**
+- `comment`: A user commented on your post.
+- `comment_reply`: A user replied to your comment.
+- `like`: A user liked your post.
+- `comment_like`: A user liked your comment.
+- `follow`: A user followed you.
+
+---
+
+#### Mark Notifications as Read
+
+Mark all unread notifications as read.
+
+**Endpoint:** `POST /api/notifications/read`
+
+**Authentication:** Required (User JWT)
+
+**Response:**
+
+```json
+{
+  "success": true
+}
+```
+
+
 
 ---
 
